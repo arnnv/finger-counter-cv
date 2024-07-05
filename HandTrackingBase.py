@@ -2,6 +2,7 @@ import time
 
 import cv2
 import mediapipe as mp
+from mediapipe import solutions
 
 mp_hands = mp.solutions.hands
 mp_draw = mp.solutions.drawing_utils
@@ -26,7 +27,9 @@ while True:
 
     if result.multi_hand_landmarks:
         for hand_lms in result.multi_hand_landmarks:
-            mp_draw.draw_landmarks(img, hand_lms, mp_hands.HAND_CONNECTIONS)
+            mp_draw.draw_landmarks(img, hand_lms, mp_hands.HAND_CONNECTIONS,
+                                   solutions.drawing_styles.get_default_hand_landmarks_style(),
+                                   solutions.drawing_styles.get_default_hand_connections_style())
 
     cv2.imshow("Image", img)
 
