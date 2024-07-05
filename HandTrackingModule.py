@@ -56,8 +56,8 @@ def main():
         img = detector.getHands(img)
 
         lm_list = detector.getLandmarks(img)
-        if len(lm_list) != 0:
-            print(lm_list)
+        # if len(lm_list) != 0:
+        #     print(lm_list)
 
         if not success:
             break
