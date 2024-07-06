@@ -12,6 +12,7 @@ def findFingerCount(lm_list):
     for tip in finger_tips:
         if tip == 4:
             if lm_list[tip][0] > lm_list[tip - 1][0]:
+
                 open_map.append(1)
             else:
                 open_map.append(0)
