@@ -77,7 +77,11 @@ def main():
         cv2.putText(img, f"FPS: {int(fps)}", (500, 30), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0), 2)
         cv2.imshow("Image", img)
 
-        cv2.waitKey(1)
+        if cv2.waitKey(1) == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
 
 
 if __name__ == "__main__":
