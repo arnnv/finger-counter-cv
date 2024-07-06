@@ -4,8 +4,25 @@ import cv2
 from modules.hand_tracking_module import HandDetector
 
 
-def findFingerCount(img, lm_list):
-    return img
+def findFingerCount(lm_list):
+    finger_tips = [4, 8, 12, 16, 20]
+
+    open_map = []
+
+    for tip in finger_tips:
+        if tip == 4:
+            if lm_list[tip][0] > lm_list[tip-1][0]:
+                open_map.append(1)
+            else:
+                open_map.append(0)
+            continue
+
+        if lm_list[tip][1] < lm_list[tip-2][1]:
+            open_map.append(1)
+        else:
+            open_map.append(0)
+
+    return open_map
 
 
 IMG_FOLDER = "./img/"
@@ -33,7 +50,13 @@ while True:
     img = detector.getHands(img)
     lm_list = detector.getLandmarks(img)
 
-    img = findFingerCount(img, lm_list)
+    finger_count = 0
+
+    if len(lm_list) != 0:
+        fingers_open = findFingerCount(lm_list)
+        finger_count = sum(fingers_open)
+
+   # img = displayFinger(img, finger_count)
 
     cTime = time.time()
     fps = 1 / (cTime - pTime)
