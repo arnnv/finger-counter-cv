@@ -11,7 +11,7 @@ def findFingerCount(lm_list):
 
     for tip in finger_tips:
         if tip == 4:
-            if lm_list[tip][0] > lm_list[tip - 1][0]:
+            if lm_list[tip][0] < lm_list[tip - 1][0]:
 
                 open_map.append(1)
             else:
@@ -27,7 +27,10 @@ def findFingerCount(lm_list):
 
 
 def displayFinger(img, finger_count, finger_images):
-    cv2.putText(img, f"Finger Count: {finger_count}", (120, 30), cv2.FONT_HERSHEY_PLAIN, 2, (255, 0, 0), 2)
+    # cv2.putText(img, f"Finger Count: {finger_count}", (120, 30), cv2.FONT_HERSHEY_PLAIN, 2, (255, 0, 0), 2)
+
+    cv2.rectangle(img, (0, 120), (120, 120+120), (0, 255, 0), cv2.FILLED)
+    cv2.putText(img, f"{finger_count}", (0, 245), cv2.FONT_HERSHEY_PLAIN, 11.5, (255, 0, 0), 7)
 
     h, w, c = finger_images[finger_count].shape
     img[0:h, 0:w] = finger_images[finger_count]
@@ -55,6 +58,7 @@ def main():
         if not success:
             break
 
+        img = cv2.flip(img, 1)
         img = detector.getHands(img)
         lm_list = detector.getLandmarks(img)
 
